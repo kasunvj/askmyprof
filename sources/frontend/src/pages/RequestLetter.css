@@ -1,0 +1,88 @@
+.request-letter-page {
+  min-height: calc(100vh - 80px);
+  padding: 3rem 0;
+  background: linear-gradient(135deg, rgba(220, 20, 60, 0.03), rgba(255, 215, 0, 0.03));
+}
+
+.request-card {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: var(--white);
+  border-radius: 12px;
+  padding: 3rem;
+  box-shadow: var(--shadow-lg);
+  animation: fadeInUp 0.6s ease;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark-gray);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  color: var(--text-gray);
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+}
+
+.request-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.request-form textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn-cancel {
+  flex: 1;
+  background-color: transparent;
+  color: var(--text-gray);
+  border: 2px solid var(--border-gray);
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+  border-color: var(--text-gray);
+  color: var(--dark-gray);
+}
+
+.btn-submit {
+  flex: 2;
+}
+
+@media (max-width: 768px) {
+  .request-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .page-title {
+    font-size: 1.7rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn-cancel,
+  .btn-submit {
+    flex: 1;
+  }
+}

@@ -1,0 +1,388 @@
+========================================
+ASKMYPROF - PROJECT OVERVIEW
+========================================
+
+PROJECT DESCRIPTION
+===================
+AskMyProf is a modern web application built with the MERN stack (MongoDB, Express, React, Node.js)
+that streamlines the process of requesting letters of recommendation between students and professors.
+
+KEY FEATURES
+============
+✓ User Authentication
+  - Secure signup and login system
+  - Role-based access control (Student/Teacher)
+  - JWT token-based authentication
+  - Password encryption with bcrypt
+
+✓ Student Features
+  - Clean landing page with visual elements
+  - Request letters from registered professors
+  - Select professor from dropdown list
+  - Add personalized messages to requests
+  - Track request status in dashboard
+  - View all submitted requests
+
+✓ Teacher Features
+  - Custom display name for student visibility
+  - View all incoming requests
+  - See student details and messages
+  - Approve or reject requests
+  - Dashboard showing all request history
+
+✓ User Interface
+  - Modern, clean design
+  - Theme colors: White, Red (#DC143C), Yellow (#FFD700)
+  - Responsive layout (works on all devices)
+  - Smooth animations and transitions
+  - Intuitive navigation
+  - Visual representation of student/supervisor
+
+TECHNICAL ARCHITECTURE
+======================
+
+Backend (Node.js + Express)
+---------------------------
+- RESTful API architecture
+- MongoDB database with Mongoose ODM
+- JWT for authentication and authorization
+- Express middleware for request validation
+- Secure password hashing with bcryptjs
+- CORS enabled for cross-origin requests
+- Input validation and sanitization
+
+Frontend (React)
+----------------
+- React 18 with functional components and hooks
+- React Router v6 for navigation
+- Context API for global state management
+- Axios for HTTP requests
+- Protected routes with authentication
+- Responsive CSS with custom styling
+- Component-based architecture
+
+Database Schema
+---------------
+Users Collection:
+  - username (unique)
+  - email (unique)
+  - password (hashed)
+  - role (student/teacher)
+  - displayName
+  - createdAt
+
+LetterRequests Collection:
+  - student (ref to User)
+  - teacher (ref to User)
+  - status (pending/approved/rejected)
+  - message
+  - createdAt
+  - updatedAt
+
+FOLDER STRUCTURE
+================
+askmyprof/
+├── docs/                           # All documentation
+│   ├── SETUP_INSTRUCTIONS.txt      # Complete setup guide
+│   ├── QUICK_START.txt             # Quick reference
+│   └── PROJECT_OVERVIEW.txt        # This file
+│
+├── resources/                      # Resources and assets
+├── views/                          # View templates
+│
+├── sources/
+│   ├── backend/                   # Backend application
+│   │   ├── config/
+│   │   │   └── database.js        # MongoDB connection
+│   │   ├── middleware/
+│   │   │   └── auth.js            # Authentication middleware
+│   │   ├── models/
+│   │   │   ├── User.js            # User schema
+│   │   │   └── LetterRequest.js   # Request schema
+│   │   ├── routes/
+│   │   │   ├── auth.js            # Auth endpoints
+│   │   │   └── letterRequests.js  # Request endpoints
+│   │   ├── .env.example           # Environment template
+│   │   ├── .gitignore
+│   │   ├── package.json
+│   │   └── server.js              # Entry point
+│   │
+│   └── frontend/                  # Frontend application
+│       ├── public/
+│       │   └── index.html         # HTML template
+│       ├── src/
+│       │   ├── components/
+│       │   │   ├── Navbar.js      # Navigation component
+│       │   │   └── Navbar.css
+│       │   ├── context/
+│       │   │   └── AuthContext.js # Auth state management
+│       │   ├── pages/
+│       │   │   ├── LandingPage.js      # Home page
+│       │   │   ├── LandingPage.css
+│       │   │   ├── Login.js            # Login page
+│       │   │   ├── Signup.js           # Signup page
+│       │   │   ├── Auth.css            # Auth styles
+│       │   │   ├── Dashboard.js        # Dashboard page
+│       │   │   ├── Dashboard.css
+│       │   │   ├── RequestLetter.js    # Request form
+│       │   │   └── RequestLetter.css
+│       │   ├── App.js             # Main component
+│       │   ├── index.js           # Entry point
+│       │   ├── index.css          # Global styles
+│       │   └── config.js          # Configuration
+│       ├── .env.example
+│       ├── .gitignore
+│       └── package.json
+│
+└── README.md                       # Project README
+
+DESIGN THEME
+============
+Color Palette:
+  Primary Red:    #DC143C (Crimson)
+  Primary Yellow: #FFD700 (Gold)
+  White:          #FFFFFF
+  Light Gray:     #F5F5F5
+  Dark Gray:      #333333
+  Border Gray:    #E0E0E0
+  Text Gray:      #666666
+  Hover Red:      #B81030
+
+Typography:
+  Font Family: 'Inter', sans-serif
+  Headings: Bold, 700 weight
+  Body: Regular, 400 weight
+  Links: 600 weight
+
+Layout:
+  Max Width: 1200px
+  Spacing: Consistent padding and margins
+  Cards: Rounded corners (12px), shadow effects
+  Buttons: Rounded (6-8px), hover effects
+  Responsive: Mobile-first approach
+
+SECURITY FEATURES
+=================
+✓ Password hashing with bcrypt (10 salt rounds)
+✓ JWT token authentication (7-day expiry)
+✓ Protected API routes with middleware
+✓ Input validation and sanitization
+✓ Secure environment variable management
+✓ CORS configuration
+✓ MongoDB injection prevention
+✓ XSS protection through React
+
+USER WORKFLOWS
+==============
+
+New User Registration:
+1. Navigate to application
+2. Click "Sign Up"
+3. Select role (Student/Teacher)
+4. Fill registration form
+5. Submit and auto-login
+6. Redirect to dashboard
+
+Student Request Flow:
+1. Login as student
+2. Click "Request a Letter"
+3. Select professor from dropdown
+4. Add optional message
+5. Submit request
+6. View in dashboard (status: pending)
+7. Receive status updates (approved/rejected)
+
+Teacher Review Flow:
+1. Login as teacher
+2. View dashboard with incoming requests
+3. Review student information
+4. Read personal message
+5. Click "Approve" or "Reject"
+6. Status updates instantly
+7. Student sees updated status
+
+API ENDPOINTS SUMMARY
+=====================
+
+Authentication:
+  POST   /api/auth/signup          Create account
+  POST   /api/auth/login           Login user
+
+Letter Requests:
+  GET    /api/letter-requests/teachers       List all teachers
+  POST   /api/letter-requests                Create request (student)
+  GET    /api/letter-requests/my-requests    Get user's requests
+  PATCH  /api/letter-requests/:id/status     Update status (teacher)
+
+Health Check:
+  GET    /api/health                         Server status
+
+LANDING PAGE DESIGN
+===================
+The landing page features:
+
+Hero Section:
+  Left Side:
+    - Large heading: "Welcome to AskMyProf"
+    - Subtitle explaining the service
+    - Description paragraph
+    - Call-to-action button: "Request a Letter"
+
+  Right Side:
+    - Visual illustration (SVG)
+    - Graduate student icon in red
+    - Supervisor icon in gray
+    - Caption: "Student & Supervisor"
+
+Features Section:
+  - "How It Works" heading
+  - Three feature cards:
+    1. Sign Up (Yellow icon)
+    2. Choose Professor (Red icon)
+    3. Send Request (Yellow icon)
+
+Colors and Styling:
+  - Gradient backgrounds (red to yellow, subtle)
+  - Card shadows for depth
+  - Smooth animations on load
+  - Responsive grid layout
+
+FUTURE ENHANCEMENTS
+===================
+Potential features for future versions:
+
+High Priority:
+  □ Email notifications
+  □ File upload for documents
+  □ Request templates
+  □ Password reset functionality
+  □ User profile pages
+
+Medium Priority:
+  □ Search and filter requests
+  □ Export to PDF
+  □ Request deadlines
+  □ Request history tracking
+  □ Admin dashboard
+
+Low Priority:
+  □ Multi-factor authentication
+  □ Analytics and reports
+  □ Mobile app version
+  □ Integration with university systems
+  □ Letter generation templates
+
+DEPLOYMENT CONSIDERATIONS
+==========================
+
+Production Checklist:
+  ☐ Set NODE_ENV=production
+  ☐ Use strong JWT_SECRET
+  ☐ Enable MongoDB authentication
+  ☐ Set up SSL/HTTPS
+  ☐ Configure CORS for production domains
+  ☐ Add rate limiting
+  ☐ Set up logging and monitoring
+  ☐ Create backups strategy
+  ☐ Update environment variables
+  ☐ Build and optimize frontend
+
+Recommended Platforms:
+  Backend:
+    - Heroku
+    - Railway
+    - Render
+    - DigitalOcean
+    - AWS EC2
+
+  Frontend:
+    - Vercel
+    - Netlify
+    - AWS S3 + CloudFront
+    - GitHub Pages
+
+  Database:
+    - MongoDB Atlas (recommended)
+    - Self-hosted MongoDB
+    - DigitalOcean Managed Databases
+
+PERFORMANCE CONSIDERATIONS
+===========================
+- Frontend built with production optimization
+- React components use proper memoization where needed
+- API responses are paginated for large datasets
+- Database indexes on frequently queried fields
+- Static assets served with caching headers
+- Lazy loading for images
+- Code splitting for routes
+
+ACCESSIBILITY FEATURES
+======================
+- Semantic HTML elements
+- Proper form labels
+- Keyboard navigation support
+- ARIA attributes where needed
+- Color contrast meets WCAG standards
+- Responsive design for all screen sizes
+- Focus indicators on interactive elements
+
+BROWSER SUPPORT
+===============
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+TESTING RECOMMENDATIONS
+========================
+Backend Testing:
+  - Unit tests for models
+  - Integration tests for API routes
+  - Authentication flow testing
+  - Database operation testing
+
+Frontend Testing:
+  - Component unit tests
+  - Integration tests for user flows
+  - End-to-end testing with Cypress
+  - Accessibility testing
+
+MAINTENANCE
+===========
+Regular Tasks:
+  - Update dependencies monthly
+  - Security audit with npm audit
+  - Database backups (daily/weekly)
+  - Monitor error logs
+  - Review user feedback
+  - Update documentation
+  - Check for breaking changes
+
+SUPPORT RESOURCES
+=================
+Documentation Files:
+  - SETUP_INSTRUCTIONS.txt  (Complete guide)
+  - QUICK_START.txt        (Quick reference)
+  - PROJECT_OVERVIEW.txt   (This file)
+  - README.md              (GitHub readme)
+
+Additional Resources:
+  - Node.js Docs: https://nodejs.org/docs
+  - React Docs: https://react.dev
+  - MongoDB Docs: https://docs.mongodb.com
+  - Express Docs: https://expressjs.com
+
+VERSION HISTORY
+===============
+Version 1.0.0 (November 2025)
+  - Initial release
+  - User authentication
+  - Letter request system
+  - Dashboard functionality
+  - Landing page design
+  - Complete documentation
+
+========================================
+END OF PROJECT OVERVIEW
+========================================

@@ -1,0 +1,126 @@
+========================================
+ASKMYPROF - QUICK START GUIDE
+========================================
+
+This is a condensed version of the setup instructions for quick reference.
+
+PREREQUISITES
+=============
+✓ Node.js 16+ installed
+✓ MongoDB Atlas account (cloud - free) OR local MongoDB installed
+✓ npm installed
+
+BACKEND SETUP (4 steps)
+=======================
+1. Navigate and install:
+   cd sources/backend
+   npm install
+
+2. Setup MongoDB Atlas (RECOMMENDED):
+   - Sign up at: https://cloud.mongodb.com
+   - Create free M0 cluster
+   - Create database user (save username/password)
+   - Set Network Access to 0.0.0.0/0
+   - Get connection string from "Connect" button
+
+3. Configure environment:
+   cp .env.example .env
+
+   Edit .env file:
+   PORT=5000
+   MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/askmyprof?retryWrites=true&w=majority
+   JWT_SECRET=generate_secure_random_string
+   NODE_ENV=development
+
+   NOTE: If password has special characters (!, @, #, etc.), URL encode them:
+   ! = %21, @ = %40, # = %23, $ = %24, etc.
+
+4. Start server:
+   npm run dev
+
+   ✓ Backend running at: http://localhost:5000
+   ✓ Should see: "MongoDB Connected: cluster..."
+
+FRONTEND SETUP (3 steps)
+========================
+1. Navigate and install:
+   cd sources/frontend
+   npm install
+
+2. Configure environment:
+   cp .env.example .env
+
+   Edit .env file:
+   REACT_APP_API_URL=http://localhost:5000/api
+
+3. Start development server:
+   npm start
+
+   ✓ Frontend running at: http://localhost:3000
+
+TESTING THE APP
+===============
+1. Create Teacher Account:
+   - Go to http://localhost:3000
+   - Click "Sign Up"
+   - Role: Teacher
+   - Display Name: Dr. John Smith
+   - Fill other details and submit
+
+2. Create Student Account:
+   - Logout
+   - Sign up again
+   - Role: Student
+   - Display Name: Jane Doe
+   - Fill other details and submit
+
+3. Send Request:
+   - As student, click "Request a Letter"
+   - Select Dr. John Smith
+   - Add message and send
+
+4. Approve Request:
+   - Logout and login as Dr. Smith
+   - View request in dashboard
+   - Click "Approve"
+
+COMMON COMMANDS
+===============
+Backend:
+  npm run dev      # Start development server
+  npm start        # Start production server
+
+Frontend:
+  npm start        # Start development server
+  npm run build    # Build for production
+
+MongoDB:
+  mongod           # Start MongoDB
+  mongo            # Open MongoDB shell
+
+TROUBLESHOOTING
+===============
+✗ MongoDB "authentication failed"?
+  → Check username/password in MongoDB Atlas
+  → URL encode special characters in password (! = %21)
+  → Verify connection string is correct
+
+✗ MongoDB not connecting?
+  → Check Network Access in Atlas (should be 0.0.0.0/0)
+  → Verify cluster is deployed and running
+  → Check .env MONGODB_URI format
+
+✗ Port already in use?
+  → Change PORT in .env
+  → Or kill process: lsof -ti:5000 | xargs kill -9
+
+✗ Dependencies not found?
+  → Delete node_modules
+  → Run: npm install
+
+✗ CORS errors?
+  → Verify backend is running
+  → Check API_URL in frontend .env
+
+For detailed instructions, see:
+docs/SETUP_INSTRUCTIONS.txt

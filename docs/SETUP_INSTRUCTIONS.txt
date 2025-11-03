@@ -1,0 +1,527 @@
+========================================
+ASKMYPROF - LETTER REQUEST SYSTEM
+COMPLETE SETUP INSTRUCTIONS
+========================================
+
+PROJECT OVERVIEW
+================
+AskMyProf is a modern MERN stack application that allows students to request letters of recommendation from their professors/teachers. The application features:
+- User authentication with role-based access (Student/Teacher)
+- Modern UI with white, red, and yellow theme colors
+- Letter request management system
+- Professor selection from dropdown
+- Request tracking dashboard
+
+TECHNOLOGY STACK
+================
+Backend:
+- Node.js
+- Express.js
+- MongoDB with Mongoose
+- JWT for authentication
+- bcryptjs for password hashing
+
+Frontend:
+- React 18
+- React Router v6
+- Axios for API calls
+- Context API for state management
+- CSS3 with custom styling
+
+
+========================================
+PART 1: PREREQUISITES
+========================================
+
+Before starting, ensure you have the following installed:
+
+1. Node.js (v16 or higher)
+   - Download from: https://nodejs.org/
+   - Verify installation: node --version
+
+2. MongoDB
+   - Option A: Install locally from: https://www.mongodb.com/try/download/community
+   - Option B: Use MongoDB Atlas (cloud): https://www.mongodb.com/cloud/atlas
+   - Verify installation: mongod --version
+
+3. npm (comes with Node.js)
+   - Verify installation: npm --version
+
+4. Git (optional, for version control)
+   - Download from: https://git-scm.com/
+
+
+========================================
+PART 2: BACKEND SETUP
+========================================
+
+STEP 1: Navigate to Backend Directory
+--------------------------------------
+cd /home/vimukthi/claude/askmyprof/sources/backend
+
+
+STEP 2: Install Backend Dependencies
+--------------------------------------
+npm install
+
+This will install:
+- express: Web framework
+- mongoose: MongoDB ODM
+- bcryptjs: Password hashing
+- jsonwebtoken: JWT authentication
+- cors: Cross-origin resource sharing
+- dotenv: Environment variables
+- express-validator: Input validation
+- nodemon: Development server (dev dependency)
+
+
+STEP 3: Configure Environment Variables
+----------------------------------------
+Create a .env file in the backend directory:
+
+cp .env.example .env
+
+Then edit the .env file with your settings:
+
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/askmyprof
+JWT_SECRET=your_secure_random_secret_key_here
+NODE_ENV=development
+
+IMPORTANT: Generate a secure JWT_SECRET using:
+node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+
+
+STEP 4: Start MongoDB
+---------------------
+If using local MongoDB:
+mongod
+
+If using MongoDB Atlas:
+- Create a cluster at https://cloud.mongodb.com
+- Get your connection string
+- Update MONGODB_URI in .env file
+
+
+STEP 5: Start Backend Server
+-----------------------------
+For development (with auto-reload):
+npm run dev
+
+For production:
+npm start
+
+The server should start on http://localhost:5000
+
+Verify it's running:
+curl http://localhost:5000/api/health
+
+
+========================================
+PART 3: FRONTEND SETUP
+========================================
+
+STEP 1: Navigate to Frontend Directory
+---------------------------------------
+cd /home/vimukthi/claude/askmyprof/sources/frontend
+
+
+STEP 2: Install Frontend Dependencies
+--------------------------------------
+npm install
+
+This will install:
+- react: Core React library
+- react-dom: React DOM rendering
+- react-router-dom: Routing
+- axios: HTTP client
+- react-scripts: Create React App scripts
+
+
+STEP 3: Configure Environment Variables
+----------------------------------------
+Create a .env file in the frontend directory:
+
+cp .env.example .env
+
+Edit the .env file:
+
+REACT_APP_API_URL=http://localhost:5000/api
+
+
+STEP 4: Start Frontend Development Server
+------------------------------------------
+npm start
+
+The application will open in your browser at http://localhost:3000
+
+If it doesn't open automatically, navigate to:
+http://localhost:3000
+
+
+========================================
+PART 4: APPLICATION USAGE
+========================================
+
+CREATING ACCOUNTS
+-----------------
+1. Navigate to http://localhost:3000
+2. Click "Sign Up" button
+3. Fill in the registration form:
+   - Select role: Student or Teacher/Professor
+   - Enter display name (this is how you'll appear to others)
+   - Choose a unique username
+   - Provide email address
+   - Create a password (minimum 6 characters)
+   - Confirm password
+4. Click "Sign Up"
+5. You'll be automatically logged in and redirected to dashboard
+
+STUDENT WORKFLOW
+----------------
+1. Login with student account
+2. From landing page, click "Request a Letter" button
+3. Or from dashboard, click "+ New Request" button
+4. Select a professor from the dropdown menu
+5. (Optional) Add a personal message
+6. Click "Send Request"
+7. View request status in your dashboard
+8. Status can be: Pending, Approved, or Rejected
+
+TEACHER WORKFLOW
+----------------
+1. Login with teacher account
+2. View all incoming student requests in dashboard
+3. Each request shows:
+   - Student name and contact information
+   - Personal message (if provided)
+   - Request date
+4. For pending requests, you can:
+   - Click "Approve" to accept the request
+   - Click "Reject" to decline the request
+5. Approved/rejected requests are marked accordingly
+
+
+========================================
+PART 5: PROJECT STRUCTURE
+========================================
+
+Root Directory Structure:
+-------------------------
+askmyprof/
+├── docs/                    # Documentation files
+│   └── SETUP_INSTRUCTIONS.txt
+├── resources/              # Additional resources (images, etc.)
+├── views/                  # View templates (if needed)
+└── sources/               # Source code
+    ├── backend/           # Backend Node.js application
+    └── frontend/          # Frontend React application
+
+
+Backend Structure:
+------------------
+sources/backend/
+├── config/
+│   └── database.js        # MongoDB connection configuration
+├── middleware/
+│   └── auth.js           # Authentication middleware
+├── models/
+│   ├── User.js           # User model (students & teachers)
+│   └── LetterRequest.js  # Letter request model
+├── routes/
+│   ├── auth.js           # Authentication routes
+│   └── letterRequests.js # Letter request routes
+├── .env.example          # Example environment variables
+├── package.json          # Dependencies and scripts
+└── server.js            # Main server entry point
+
+
+Frontend Structure:
+-------------------
+sources/frontend/
+├── public/
+│   └── index.html        # HTML template
+├── src/
+│   ├── components/
+│   │   ├── Navbar.js     # Navigation bar component
+│   │   └── Navbar.css    # Navbar styles
+│   ├── context/
+│   │   └── AuthContext.js # Authentication context
+│   ├── pages/
+│   │   ├── LandingPage.js    # Home page
+│   │   ├── LandingPage.css
+│   │   ├── Login.js          # Login page
+│   │   ├── Signup.js         # Signup page
+│   │   ├── Auth.css          # Auth pages styles
+│   │   ├── Dashboard.js      # User dashboard
+│   │   ├── Dashboard.css
+│   │   ├── RequestLetter.js  # Letter request form
+│   │   └── RequestLetter.css
+│   ├── App.js            # Main app component
+│   ├── index.js          # Entry point
+│   ├── index.css         # Global styles
+│   └── config.js         # Configuration
+├── .env.example          # Example environment variables
+└── package.json          # Dependencies and scripts
+
+
+========================================
+PART 6: API ENDPOINTS
+========================================
+
+Authentication Endpoints:
+-------------------------
+POST /api/auth/signup
+- Create new user account
+- Body: { username, email, password, role, displayName }
+- Returns: JWT token and user object
+
+POST /api/auth/login
+- Login existing user
+- Body: { username, password }
+- Returns: JWT token and user object
+
+
+Letter Request Endpoints:
+--------------------------
+GET /api/letter-requests/teachers
+- Get list of all registered teachers
+- Requires: Authentication
+- Returns: Array of teacher objects
+
+POST /api/letter-requests
+- Create new letter request
+- Requires: Authentication (Student only)
+- Body: { teacherId, message }
+- Returns: Created request object
+
+GET /api/letter-requests/my-requests
+- Get all requests for current user
+- Requires: Authentication
+- Returns: Array of requests (sent or received)
+
+PATCH /api/letter-requests/:id/status
+- Update request status
+- Requires: Authentication (Teacher only)
+- Body: { status: 'approved' | 'rejected' }
+- Returns: Updated request object
+
+
+========================================
+PART 7: THEME COLORS
+========================================
+
+The application uses the following color scheme:
+
+Primary Colors:
+- Red: #DC143C (Crimson Red)
+- Yellow: #FFD700 (Gold)
+- White: #FFFFFF
+
+Supporting Colors:
+- Light Gray: #F5F5F5 (Backgrounds)
+- Dark Gray: #333333 (Text)
+- Border Gray: #E0E0E0 (Borders)
+- Text Gray: #666666 (Secondary text)
+- Hover Red: #B81030 (Darker red for hover states)
+
+These colors are defined as CSS variables in:
+sources/frontend/src/index.css
+
+
+========================================
+PART 8: TROUBLESHOOTING
+========================================
+
+Common Issues and Solutions:
+----------------------------
+
+1. "Cannot connect to MongoDB"
+   Solution:
+   - Ensure MongoDB is running: mongod
+   - Check MONGODB_URI in backend .env file
+   - Verify MongoDB is listening on correct port
+
+2. "CORS error" in browser console
+   Solution:
+   - Ensure backend is running
+   - Check that frontend is making requests to correct API URL
+   - Verify CORS is enabled in backend (it is by default)
+
+3. "Module not found" errors
+   Solution:
+   - Delete node_modules folder
+   - Delete package-lock.json
+   - Run: npm install
+
+4. Port already in use
+   Solution:
+   - Change PORT in backend .env file
+   - Or kill process using the port:
+     Linux/Mac: lsof -ti:5000 | xargs kill -9
+     Windows: netstat -ano | findstr :5000
+
+5. "Token is not valid" error
+   Solution:
+   - Clear localStorage in browser
+   - Login again
+   - Ensure JWT_SECRET is set in backend .env
+
+6. Frontend not updating
+   Solution:
+   - Clear browser cache
+   - Hard refresh: Ctrl+Shift+R (Windows/Linux) or Cmd+Shift+R (Mac)
+   - Stop and restart development server
+
+
+========================================
+PART 9: PRODUCTION DEPLOYMENT
+========================================
+
+Backend Deployment:
+-------------------
+1. Set environment variables on hosting platform
+2. Set NODE_ENV=production
+3. Use strong JWT_SECRET
+4. Update MONGODB_URI to production database
+5. Deploy to platforms like:
+   - Heroku
+   - DigitalOcean
+   - AWS EC2
+   - Railway
+   - Render
+
+Frontend Deployment:
+--------------------
+1. Update REACT_APP_API_URL to production backend URL
+2. Build production bundle:
+   npm run build
+3. Deploy 'build' folder to:
+   - Vercel
+   - Netlify
+   - AWS S3 + CloudFront
+   - GitHub Pages
+
+Security Checklist:
+-------------------
+☐ Use HTTPS for production
+☐ Set secure JWT_SECRET
+☐ Enable MongoDB authentication
+☐ Add rate limiting
+☐ Implement input sanitization
+☐ Add CSRF protection
+☐ Use environment variables for secrets
+☐ Enable CORS only for trusted domains
+☐ Keep dependencies updated
+☐ Add logging and monitoring
+
+
+========================================
+PART 10: TESTING THE APPLICATION
+========================================
+
+Testing User Registration:
+--------------------------
+1. Register as Teacher:
+   - Role: Teacher
+   - Display Name: Dr. John Smith
+   - Username: drsmith
+   - Email: smith@university.edu
+   - Password: test123
+
+2. Register as Student:
+   - Role: Student
+   - Display Name: Jane Doe
+   - Username: janedoe
+   - Email: jane@student.edu
+   - Password: test123
+
+Testing Letter Request Flow:
+----------------------------
+1. Login as Student (janedoe)
+2. Click "Request a Letter"
+3. Select "Dr. John Smith" from dropdown
+4. Add message: "I would appreciate a recommendation letter for my graduate school application."
+5. Click "Send Request"
+6. Verify request appears in dashboard
+
+7. Logout and login as Teacher (drsmith)
+8. View the request in dashboard
+9. Click "Approve" or "Reject"
+10. Verify status updates
+
+11. Logout and login back as Student
+12. Verify status change is reflected
+
+
+========================================
+PART 11: MAINTENANCE
+========================================
+
+Regular Maintenance Tasks:
+--------------------------
+1. Update dependencies:
+   npm update
+
+2. Check for security vulnerabilities:
+   npm audit
+   npm audit fix
+
+3. Backup MongoDB database:
+   mongodump --db askmyprof --out /backup/path
+
+4. Restore MongoDB database:
+   mongorestore --db askmyprof /backup/path/askmyprof
+
+5. Monitor application logs
+6. Review user feedback
+7. Update documentation as features change
+
+
+========================================
+PART 12: FUTURE ENHANCEMENTS
+========================================
+
+Potential Features to Add:
+---------------------------
+☐ Email notifications for request status changes
+☐ File upload for supporting documents
+☐ Request templates
+☐ Multi-factor authentication
+☐ Admin dashboard
+☐ Analytics and reporting
+☐ Request deadline tracking
+☐ Letter generation templates
+☐ Student portfolio/CV attachment
+☐ Bulk request actions for teachers
+☐ Search and filter functionality
+☐ Export requests to PDF
+☐ Mobile app version
+
+
+========================================
+SUPPORT AND CONTACT
+========================================
+
+For issues, questions, or contributions:
+- Review this documentation
+- Check the troubleshooting section
+- Review error logs in console
+- Ensure all dependencies are installed
+- Verify environment variables are set correctly
+
+
+========================================
+VERSION INFORMATION
+========================================
+
+Application Version: 1.0.0
+Documentation Last Updated: November 2025
+Node.js Version Required: 16+
+MongoDB Version Required: 4.4+
+React Version: 18.2.0
+
+
+========================================
+END OF SETUP INSTRUCTIONS
+========================================
