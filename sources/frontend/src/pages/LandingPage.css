@@ -112,30 +112,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: fadeIn 1s ease;
+  animation: fadeIn 2s ease;
 }
 
-.image-placeholder {
-  background: linear-gradient(135deg, rgba(220, 20, 60, 0.05), rgba(255, 215, 0, 0.05));
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: var(--shadow-lg);
-  text-align: center;
-  width: 100%;
-  max-width: 450px;
-}
-
-.image-placeholder svg {
-  width: 100%;
+.hero-illustration {
+  width: 180%;
   height: auto;
-  max-width: 400px;
-}
-
-.image-caption {
-  font-size: 1rem;
-  color: var(--text-gray);
-  font-weight: 600;
-  margin-top: 1.5rem;
+  max-width: 700px;
+  display: block;
 }
 
 /* Benefits Section */

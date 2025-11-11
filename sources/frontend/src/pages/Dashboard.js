@@ -100,15 +100,15 @@ const Dashboard = () => {
                   <div className="request-info">
                     {user?.role === 'teacher' ? (
                       <>
-                        <h3 className="request-name">{request.student.displayName}</h3>
+                        <h3 className="request-name">{request.student?.displayName || 'Unknown Student'}</h3>
                         <p className="request-meta">
-                          @{request.student.username} • {request.student.email}
+                          @{request.student?.username || 'N/A'} • {request.student?.email || 'N/A'}
                         </p>
                       </>
                     ) : (
                       <>
-                        <h3 className="request-name">{request.teacher.displayName}</h3>
-                        <p className="request-meta">@{request.teacher.username}</p>
+                        <h3 className="request-name">{request.teacher?.displayName || 'Unknown Teacher'}</h3>
+                        <p className="request-meta">@{request.teacher?.username || 'N/A'}</p>
                       </>
                     )}
                   </div>
